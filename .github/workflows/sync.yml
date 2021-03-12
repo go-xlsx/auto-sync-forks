@@ -2,14 +2,15 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # every 30 minutes
+    - cron: "*/30 * * * *" # every 30 minutes
   workflow_dispatch: # on button click
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: TobKed/github-forks-sync-action@master
+      - name: sync main branch
+        uses: TobKed/github-forks-sync-action@master
         with:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           upstream_repository: leaker/xlsx
@@ -19,7 +20,8 @@ jobs:
           force: true
           tags: true
 
-      - uses: TobKed/github-forks-sync-action@master
+      - name: sync v1 branch
+        uses: TobKed/github-forks-sync-action@master
         with:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           upstream_repository: leaker/xlsx
