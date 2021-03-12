@@ -1,0 +1,20 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # every 30 minutes
+  workflow_dispatch: # on button click
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: TobKed/github-forks-sync-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_repository: leaker/xlsx
+          target_repository: go-xlsx/xlsx
+          upstream_branch: main
+          target_branch: main
+          force: true
+          tags: true
